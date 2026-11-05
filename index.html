@@ -730,7 +730,7 @@
 
 <div class="col-lg-7">
   <form id="contact-form"
-        action="https://formsubmit.co/ajax/mulianinofi@gmail.com"
+        action="https://formsubmit.co/mulianinofi@gmail.com"
         method="POST"
         data-aos="fade-up"
         data-aos-delay="200">
@@ -1134,77 +1134,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", updateNavbar);
 
   updateNavbar();
-
-});
-</script>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const contactForm = document.getElementById("contact-form");
-
-  if (!contactForm) return;
-
-  const messageBox = document.getElementById("contact-message");
-  const submitButton = contactForm.querySelector('button[type="submit"]');
-
-  contactForm.addEventListener("submit", async function (event) {
-
-    event.preventDefault();
-
-    messageBox.className = "contact-message loading";
-    messageBox.textContent = "Pesan sedang dikirim...";
-
-    submitButton.disabled = true;
-    submitButton.textContent = "Mengirim...";
-
-    try {
-
-      const response = await fetch(contactForm.action, {
-        method: "POST",
-        body: new FormData(contactForm),
-        headers: {
-          "Accept": "application/json"
-        }
-      });
-
-      const result = await response.json();
-
-      if (response.ok && String(result.success).toLowerCase() === "true") {
-
-        messageBox.className = "contact-message success";
-
-        messageBox.textContent =
-          "Pesan berhasil dikirim! Terima kasih telah menghubungi PT SGI Tools Manufacturing.";
-
-        contactForm.reset();
-
-      } else {
-
-        throw new Error(
-          result.message || "Pesan gagal dikirim."
-        );
-
-      }
-
-    } catch (error) {
-
-      console.error("Contact Form Error:", error);
-
-      messageBox.className = "contact-message error";
-
-      messageBox.textContent =
-        "Maaf, pesan gagal dikirim. Silakan coba kembali.";
-
-    } finally {
-
-      submitButton.disabled = false;
-      submitButton.textContent = "Kirim Pesan";
-
-    }
-
-  });
 
 });
 </script>
