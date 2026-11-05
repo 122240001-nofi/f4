@@ -156,30 +156,7 @@
     <!-- About Section -->
     <section id="about" class="about section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>sejarah perusahaan</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <p>
-              PT SGI Tools Manufacturing didirikan pada 1 Juni 2015 dan bergerak di bidang tooling machining. Perusahaan ini hadir untuk memenuhi kebutuhan industri terhadap perkakas produksi dan suku cadang, khususnya cutting tools.Seiring dengan fokus usahanya, PT SGI Tools Manufacturing menyediakan layanan pembuatan perkakas baru (tool new) mulai dari bahan mentah hingga produk jadi serta pengerjaan ulang (regrinding) pada cutting tools. Dalam kegiatan produksinya, perusahaan menggunakan material steel, carbide, dan High Speed Steel (HSS).
-            </p>
-    
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <p>PT SGI Tools Manufacturing memiliki tujuan untuk terus mengembangkan usahanya sebagai pemasok perkakas otomotif dan special cutting tools di pasar nasional. Perusahaan juga berkomitmen memenuhi kebutuhan konsumen secara tepat waktu serta mengutamakan ketepatan pengiriman dan harga yang terjangkau.</p>
-          </div>
-
-        </div>
-
-      </div>
-
+      
     </section><!-- /About Section -->
 
     <section id="visi-misi" class="visi-misi section light-background">
@@ -806,55 +783,43 @@
 <footer id="footer" class="footer">
 
  
-<!-- Newsletter -->
-<div class="footer-newsletter">
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-6">
 
-        <h4>Dapatkan Informasi Terbaru</h4>
+<form id="subscribe-form">
 
-        <p>
-          Ikuti informasi terbaru mengenai produk,
-          layanan, dan perkembangan PT SGI Tools Manufacturing.
-        </p>
+  <input type="hidden" name="access_key"
+         value="9e2ad1e9-2be8-45be-b374-5f92fc5029b2">
 
-        <form id="newsletter-form" method="POST">
+  <input type="hidden" name="subject"
+         value="Pendaftaran Berlangganan Website PT SGI Tools Manufacturing">
 
-          <input type="hidden" name="access_key"
-            value="9e2ad1e9-2be8-45be-b374-5f92fc5029b2">
+  <input type="hidden" name="from_name"
+         value="Website PT SGI Tools Manufacturing">
 
-          <input type="hidden" name="subject"
-            value="Pelanggan Baru Newsletter PT SGI Tools Manufacturing">
+  <input type="hidden" name="message"
+         value="Pengunjung mendaftar untuk mendapatkan informasi terbaru PT SGI Tools Manufacturing.">
 
-          <input type="hidden" name="from_name"
-            value="Website PT SGI Tools Manufacturing">
+  <input type="checkbox" name="botcheck"
+         style="display:none;">
 
-          <div class="newsletter-form">
+  <div class="subscription-form">
+    <input type="email"
+           name="email"
+           class="form-control"
+           placeholder="Masukkan email Anda"
+           required>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Masukkan email Anda"
-              required
-            >
-
-            <input type="submit" value="Berlangganan">
-
-          </div>
-
-          <div id="newsletter-result"
-               style="margin-top: 15px;"
-               role="status"
-               aria-live="polite">
-          </div>
-
-        </form>
-
-      </div>
-    </div>
+    <button type="submit" id="subscribe-button">
+      Berlangganan
+    </button>
   </div>
-</div>
+
+  <div id="subscribe-status"
+       class="alert"
+       style="display:none; margin-top:15px;">
+  </div>
+
+</form>
+
 
   <!-- Footer utama -->
   <div class="container footer-top">
@@ -1286,6 +1251,77 @@ document.addEventListener("DOMContentLoaded", function () {
 
       button.disabled = false;
       button.value = "Berlangganan";
+
+    }
+
+  });
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const subscribeForm = document.getElementById("subscribe-form");
+  const statusBox = document.getElementById("subscribe-status");
+  const submitButton = document.getElementById("subscribe-button");
+
+  if (!subscribeForm) return;
+
+  subscribeForm.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+    statusBox.style.display = "block";
+    statusBox.className = "alert alert-info";
+    statusBox.textContent = "Email sedang dikirim...";
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Memproses...";
+
+    try {
+
+      const formData = new FormData(subscribeForm);
+
+      const response = await fetch(
+        "https://api.web3forms.com/submit",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+
+        statusBox.className = "alert alert-success";
+        statusBox.textContent =
+          "Terima kasih! Email Anda berhasil didaftarkan untuk berlangganan informasi terbaru PT SGI Tools Manufacturing.";
+
+        subscribeForm.reset();
+
+      } else {
+
+        throw new Error(result.message || "Pendaftaran gagal.");
+
+      }
+
+    } catch (error) {
+
+      statusBox.className = "alert alert-danger";
+      statusBox.textContent =
+        "Maaf, pendaftaran gagal. Silakan coba kembali.";
+
+      console.error(error);
+
+    } finally {
+
+      submitButton.disabled = false;
+      submitButton.textContent = "Berlangganan";
 
     }
 
