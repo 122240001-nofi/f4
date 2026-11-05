@@ -1039,6 +1039,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1065,32 +1066,23 @@ document.addEventListener("DOMContentLoaded", function () {
     navLinks.forEach(function (link) {
       link.classList.remove("active");
 
-      if (link.getAttribute("href") === target) {
+      const href = link.getAttribute("href");
+
+      if (
+        href === target ||
+        (target === "#visi-misi" && href === "#about")
+      ) {
         link.classList.add("active");
       }
     });
   }
-
-  // Fungsi klik navbar
-  navLinks.forEach(function (link) {
-    link.addEventListener("click", function (e) {
-      const targetId = this.getAttribute("href");
-
-      if (targetId === "#about") {
-        e.preventDefault();
-        document.getElementById("visi-misi").scrollIntoView({
-          behavior: "smooth"
-        });
-      }
-    });
-  });
 
   function updateNavbar() {
 
     const headerHeight = header ? header.offsetHeight : 0;
     const position = window.scrollY + headerHeight + 10;
 
-    // 1. Tentang Kami: Visi & Misi sampai Direktur
+    // 1. Tentang Kami: Visi dan Misi sampai Direktur
     if (
       aboutStart && aboutEnd &&
       position >= getTop(aboutStart) &&
@@ -1100,7 +1092,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // 2. Struktur Perusahaan sampai Tugas dan Tanggung Jawab
+    // 2. Struktur Perusahaan
     if (
       structureStart && structureEnd &&
       position >= getTop(structureStart) &&

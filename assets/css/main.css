@@ -4358,3 +4358,10 @@ td {
         font-size: 14px;
     }
 }
+html {
+  scroll-behavior: smooth;
+}
+
+#visi-misi {
+  scroll-margin-top: 100px;
+}
