@@ -51,7 +51,7 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Beranda</a></li>
-          <li><a href="#visi-misi">Tentang Kami</a></li>
+          <li><a href="#about">Tentang Kami</a></li>
           <li><a href="#services">Struktur Perusahaan</a></li>
            <li><a href="#portfolio">Produk</a></li>
           <li><a href="#team">Sosial Media</a></li>
@@ -150,7 +150,39 @@
         </div>
 
       </div>
+      </section><!-- /Clients Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>sejarah perusahaan</h2>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p>
+              PT SGI Tools Manufacturing didirikan pada 1 Juni 2015 dan bergerak di bidang tooling machining. Perusahaan ini hadir untuk memenuhi kebutuhan industri terhadap perkakas produksi dan suku cadang, khususnya cutting tools.Seiring dengan fokus usahanya, PT SGI Tools Manufacturing menyediakan layanan pembuatan perkakas baru (tool new) mulai dari bahan mentah hingga produk jadi serta pengerjaan ulang (regrinding) pada cutting tools. Dalam kegiatan produksinya, perusahaan menggunakan material steel, carbide, dan High Speed Steel (HSS).
+            </p>
+    
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <p>PT SGI Tools Manufacturing memiliki tujuan untuk terus mengembangkan usahanya sebagai pemasok perkakas otomotif dan special cutting tools di pasar nasional. Perusahaan juga berkomitmen memenuhi kebutuhan konsumen secara tepat waktu serta mengutamakan ketepatan pengiriman dan harga yang terjangkau.</p>
+            <a href="#" class="read-more"><span>kembali ke beranda</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
     <section id="visi-misi" class="visi-misi section light-background">
+
   <div class="container section-title" data-aos="fade-up">
     <h2>Visi &amp; Misi</h2>
     <p>Komitmen PT SGI Tools Manufacturing dalam mengembangkan perusahaan.</p>
@@ -1024,8 +1056,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const header = document.querySelector("#header");
 
   // Kelompok Tentang Kami
-  const aboutStart = document.getElementById("about");
-  const aboutEnd = document.getElementById("skills");
+const aboutStart = document.querySelector("#about");
+const aboutEnd = document.querySelector("#skills");
 
   // Kelompok Struktur Perusahaan
   const structureStart = document.getElementById("services");
@@ -1054,7 +1086,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const headerHeight = header ? header.offsetHeight : 0;
     const position = window.scrollY + headerHeight + 10;
 
-    // 1. Tentang Kami: Sejarah sampai Direktur
+    / 1. Tentang Kami: Sejarah sampai Direktur
     if (
       aboutStart && aboutEnd &&
       position >= getTop(aboutStart) &&
