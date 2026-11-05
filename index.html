@@ -1138,6 +1138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1154,10 +1155,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     messageBox.className = "contact-message loading";
     messageBox.textContent = "Pesan sedang dikirim...";
+
     submitButton.disabled = true;
     submitButton.textContent = "Mengirim...";
 
     try {
+
       const response = await fetch(contactForm.action, {
         method: "POST",
         body: new FormData(contactForm),
@@ -1168,20 +1171,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const result = await response.json();
 
-      if (response.ok && result.success) {
+      if (response.ok && String(result.success).toLowerCase() === "true") {
+
         messageBox.className = "contact-message success";
-        messageBox.textContent = "Pesan berhasil dikirim! Terima kasih telah menghubungi PT SGI Tools Manufacturing.";
+
+        messageBox.textContent =
+          "Pesan berhasil dikirim! Terima kasih telah menghubungi PT SGI Tools Manufacturing.";
+
         contactForm.reset();
+
       } else {
-        throw new Error("Pesan gagal dikirim.");
+
+        throw new Error(
+          result.message || "Pesan gagal dikirim."
+        );
+
       }
 
     } catch (error) {
+
+      console.error("Contact Form Error:", error);
+
       messageBox.className = "contact-message error";
-      messageBox.textContent = "Maaf, pesan gagal dikirim. Silakan coba kembali.";
+
+      messageBox.textContent =
+        "Maaf, pesan gagal dikirim. Silakan coba kembali.";
+
     } finally {
+
       submitButton.disabled = false;
       submitButton.textContent = "Kirim Pesan";
+
     }
 
   });
