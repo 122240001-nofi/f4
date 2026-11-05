@@ -51,7 +51,7 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Beranda</a></li>
-          <li><a href="#about">Tentang Kami</a></li>
+          <li><a href="#visi-misi">Tentang Kami</a></li>
           <li><a href="#services">Struktur Perusahaan</a></li>
            <li><a href="#portfolio">Produk</a></li>
           <li><a href="#team">Sosial Media</a></li>
@@ -59,7 +59,7 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-      <a class="btn-getstarted" href="#about">Mulai</a>
+      <a class="btn-getstarted" href="#visi-misi">Mulai</a>
     </div>
   </header>
 
@@ -1038,6 +1038,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1045,7 +1046,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const header = document.querySelector("#header");
 
   // Kelompok Tentang Kami
-  const aboutStart = document.getElementById("about");
+  const aboutStart = document.getElementById("visi-misi");
   const aboutEnd = document.getElementById("skills");
 
   // Kelompok Struktur Perusahaan
@@ -1070,23 +1071,34 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Fungsi klik navbar
+  navLinks.forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      const targetId = this.getAttribute("href");
+
+      if (targetId === "#about") {
+        e.preventDefault();
+        document.getElementById("visi-misi").scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+
   function updateNavbar() {
 
     const headerHeight = header ? header.offsetHeight : 0;
     const position = window.scrollY + headerHeight + 10;
 
     // 1. Tentang Kami: Visi & Misi sampai Direktur
-const aboutStart = document.querySelector("#visi-misi");
-const aboutEnd = document.querySelector("#skills");
-
-if (
-  aboutStart && aboutEnd &&
-  position >= getTop(aboutStart) &&
-  position < getBottom(aboutEnd)
-) {
-  setActive("#about");
-  return;
-}
+    if (
+      aboutStart && aboutEnd &&
+      position >= getTop(aboutStart) &&
+      position < getBottom(aboutEnd)
+    ) {
+      setActive("#visi-misi");
+      return;
+    }
 
     // 2. Struktur Perusahaan sampai Tugas dan Tanggung Jawab
     if (
@@ -1131,6 +1143,7 @@ if (
 
 });
 </script>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
