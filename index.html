@@ -152,36 +152,6 @@
       </div>
 
     </section><!-- /Clients Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>sejarah perusahaan</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <p>
-              PT SGI Tools Manufacturing didirikan pada 1 Juni 2015 dan bergerak di bidang tooling machining. Perusahaan ini hadir untuk memenuhi kebutuhan industri terhadap perkakas produksi dan suku cadang, khususnya cutting tools.Seiring dengan fokus usahanya, PT SGI Tools Manufacturing menyediakan layanan pembuatan perkakas baru (tool new) mulai dari bahan mentah hingga produk jadi serta pengerjaan ulang (regrinding) pada cutting tools. Dalam kegiatan produksinya, perusahaan menggunakan material steel, carbide, dan High Speed Steel (HSS).
-            </p>
-    
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <p>PT SGI Tools Manufacturing memiliki tujuan untuk terus mengembangkan usahanya sebagai pemasok perkakas otomotif dan special cutting tools di pasar nasional. Perusahaan juga berkomitmen memenuhi kebutuhan konsumen secara tepat waktu serta mengutamakan ketepatan pengiriman dan harga yang terjangkau.</p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /About Section -->
-
     <section id="visi-misi" class="visi-misi section light-background">
 
   <div class="container section-title" data-aos="fade-up">
@@ -1105,15 +1075,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const headerHeight = header ? header.offsetHeight : 0;
     const position = window.scrollY + headerHeight + 10;
 
-    // 1. Tentang Kami: Sejarah sampai Direktur
-    if (
-      aboutStart && aboutEnd &&
-      position >= getTop(aboutStart) &&
-      position < getBottom(aboutEnd)
-    ) {
-      setActive("#about");
-      return;
-    }
+    // 1. Tentang Kami: Visi & Misi sampai Direktur
+const aboutStart = document.querySelector("#visi-misi");
+const aboutEnd = document.querySelector("#skills");
+
+if (
+  aboutStart && aboutEnd &&
+  position >= getTop(aboutStart) &&
+  position < getBottom(aboutEnd)
+) {
+  setActive("#about");
+  return;
+}
 
     // 2. Struktur Perusahaan sampai Tugas dan Tanggung Jawab
     if (
@@ -1230,70 +1203,68 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  const subscribeForm = document.getElementById("subscribe-form");
-  const statusBox = document.getElementById("subscribe-status");
-  const submitButton = document.getElementById("subscribe-button");
+  const newsletterForm = document.getElementById("newsletter-form");
 
-  if (!subscribeForm) return;
+  if (!newsletterForm) return;
 
-  subscribeForm.addEventListener("submit", async function (event) {
+  newsletterForm.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
-    statusBox.style.display = "block";
-    statusBox.className = "alert alert-info";
-    statusBox.textContent = "Email sedang dikirim...";
+    const button = newsletterForm.querySelector('input[type="submit"]');
+    const result = document.getElementById("newsletter-result");
 
-    submitButton.disabled = true;
-    submitButton.textContent = "Memproses...";
+    button.disabled = true;
+    button.value = "Mengirim...";
+
+    result.innerHTML = "";
 
     try {
-
-      const formData = new FormData(subscribeForm);
 
       const response = await fetch(
         "https://api.web3forms.com/submit",
         {
           method: "POST",
-          body: formData,
-          headers: {
-            "Accept": "application/json"
-          }
+          body: new FormData(newsletterForm)
         }
       );
 
-      const result = await response.json();
+      const data = await response.json();
 
-      if (response.ok && result.success) {
+      if (response.ok && data.success) {
 
-        statusBox.className = "alert alert-success";
-        statusBox.textContent =
-          "Terima kasih! Email Anda berhasil didaftarkan untuk berlangganan informasi terbaru PT SGI Tools Manufacturing.";
+        result.innerHTML =
+          '<div style="color: green; font-weight: 600;">' +
+          'Terima kasih! Email Anda berhasil didaftarkan.' +
+          '</div>';
 
-        subscribeForm.reset();
+        newsletterForm.reset();
 
       } else {
 
-        throw new Error(result.message || "Pendaftaran gagal.");
+        result.innerHTML =
+          '<div style="color: red;">' +
+          'Maaf, pendaftaran gagal. Silakan coba kembali.' +
+          '</div>';
 
       }
 
     } catch (error) {
 
-      statusBox.className = "alert alert-danger";
-      statusBox.textContent =
-        "Maaf, pendaftaran gagal. Silakan coba kembali.";
+      result.innerHTML =
+        '<div style="color: red;">' +
+        'Terjadi kesalahan koneksi. Silakan coba kembali.' +
+        '</div>';
 
       console.error(error);
 
     } finally {
 
-      submitButton.disabled = false;
-      submitButton.textContent = "Berlangganan";
+      button.disabled = false;
+      button.value = "Berlangganan";
 
     }
 
@@ -1301,7 +1272,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-
 
 </body>
 
